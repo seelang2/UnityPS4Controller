@@ -29,14 +29,25 @@ The Button controls are simply active or not (boolean), thus they don't have val
 
 Note that R2 and L2 are designated both as Axis and Button controls. Their control names are differentiated to reflect which input setting is used. 
 
+### Axis Control Values
+For the Left Stick, Right Stick, and DPad: left is -1, right is 1, up is -1, down is 1.
+For the L2 and R2 axis controls: released is -1, fully pressed is 1 (see important note below)
+
+### Important note about L2 and R2 axis controls
+When initialized, the L2 and R2 axis values are set to 0 UNTIL THE TRIGGERS ARE PULLED. Afterwards, they will return -1 when released and 1 when fully pulled.
+
+Because of this, the axis check for L2 and R2 will NOT fire when the value is either -1 or Epsilon ('pretty much' zero) to avoid continuously firing events.
+
+This is annoying as hell. I only have one controller to test with, so I don't know if that's intended behavior or if it's an issue with my controller. Use caution when working with the L2/R2 axis controls.
+
 ### Control Names
 Axis:
 * LeftStickX
 * LeftStickY
 * RightStickX
 * RightStickY
-* DPadX
-* DPadY
+* DPadX:
+* DPadY:
 * L2Axis
 * R2Axis
 

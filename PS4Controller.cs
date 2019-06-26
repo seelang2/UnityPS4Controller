@@ -98,10 +98,23 @@ public class PS4Controller : MonoBehaviour
 
     private void CheckAxis(string controlName, AxisEvent EventCallback)
     {
-        if (System.Math.Abs(Input.GetAxis(controlName)) > Mathf.Epsilon)
+        // need exception for L2 and R2 as range is -1 (released) to 1 (pressed)
+        // BUT value returns 0 when first initialized
+        if (controlName == "L2Axis" || controlName == "R2Axis")
         {
-            if (showDebug) Debug.Log(controlName + ": " + Input.GetAxis(controlName));
-            EventCallback.Invoke(controlName, Input.GetAxis(controlName));
+            if (Input.GetAxis(controlName) > -1 && System.Math.Abs(Input.GetAxis(controlName)) > Mathf.Epsilon)
+            {
+                if (showDebug) Debug.Log(controlName + ": " + Input.GetAxis(controlName));
+                EventCallback.Invoke(controlName, Input.GetAxis(controlName));
+            }
+        }
+        else
+        {
+            if (System.Math.Abs(Input.GetAxis(controlName)) > Mathf.Epsilon)
+            {
+                if (showDebug) Debug.Log(controlName + ": " + Input.GetAxis(controlName));
+                EventCallback.Invoke(controlName, Input.GetAxis(controlName));
+            }
         }
     }
 
